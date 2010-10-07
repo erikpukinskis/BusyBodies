@@ -8,12 +8,13 @@
       window.onload = function() {
         
         canvas = new Canvas(document.body, 500, 500)
+        group = new CanvasNode({x: 0, y: 40});
+        canvas.append(group);
         
         drawRect(10,10,50,30);     
         drawRect(20,45,30,30);
         drawCircle(20,25,4);
         drawCircle(50,25,4);
-        
       }
       
       function drawCircle(x,y,rad) {
@@ -24,7 +25,7 @@
           fill: 'black',
           endAngle: Math.PI*4
         })
-        canvas.append(circle);
+        group.append(circle);
       }
       
       function drawRect(x,y,width,height) {
@@ -33,7 +34,7 @@
           y: y,
           fill: '#CCC' 
         });
-        canvas.append(rect);
+        group.append(rect);
       }
 
     </script> 
