@@ -1,13 +1,15 @@
 <html> 
  <head> 
   <script type="application/x-javascript"> 
+    var ctx;
+
     function draw() {
       var canvas = document.getElementById("canvas");
       var gray = "rgb(200,200,200)"
       var black = "rgb(0,0,0)";
       
       if (canvas.getContext) {
-        var ctx = canvas.getContext("2d");
+        ctx = canvas.getContext("2d");
         ctx.fillStyle = gray;
         ctx.fillRect (10, 10, 50, 30);
  
@@ -18,21 +20,28 @@
         ctx.fillStyle = gray;
         ctx.fillRect (20, 45, 30, 30);
       }
-      
-      function drawCircle(x,y,rad) {
-        ctx.beginPath();
-        ctx.arc(x, y, rad, 0, Math.PI*2, true); 
-        ctx.closePath();
-        ctx.fill();       
-      }
+    }
+    
+    function drawCircle(x,y,rad) {
+      ctx.beginPath();
+      ctx.arc(x, y, rad, 0, Math.PI*2, true); 
+      ctx.closePath();
+      ctx.fill();       
     }
   </script> 
  </head> 
  <body onload="draw();"> 
    <canvas id="canvas" width="150" height="150"> 
-     <p>This example requires a browser that supports the
-     <a href="http://www.w3.org/html/wg/html5/">HTML5</a> 
-     &lt;canvas&gt; feature.</p> 
+     <p>BusyBodies requires a web browser that supports the
+     HTML5 "Canvas" feature, and your web browser does not. </p>
+     
+     <p>Install the lastest version of <a href="http://www.mozilla.com/en-US/">Firefox</a>, 
+       <a href="http://www.google.com/chrome/">Google Chrome</a>, 
+       <a href="http://www.apple.com/safari/">Safari</a>, 
+       <a href="http://www.apple.com/safari/">Opera</a> and then try again with that browser.
+       You can also try
+       <a href="http://ie.microsoft.com/testdrive/">Internet Explorer 9</a>, but it's not
+       a stable application yet, so install it at your own risk!</p>
    </canvas> 
  </body> 
 </html>
