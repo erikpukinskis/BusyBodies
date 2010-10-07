@@ -1,6 +1,7 @@
 <html> 
   <head> 
-    <script type="text/javascript" src="cake.js"></script>
+    <link type="text/css" rel="Stylesheet" media="screen" href="/screen.css" /> 
+    <script type="text/javascript" src="/cake.js"></script>
    
     <script language="JavaScript" type="text/javascript"> 
       var canvas;
@@ -8,35 +9,54 @@
       window.onload = function() {
         
         canvas = new Canvas(document.body, 500, 500)
-        group = new CanvasNode({x: -60, y: 40});
-        canvas.append(group);
+        robot = new CanvasNode({x: -60, y: 40});
+        bubble = new CanvasNode({x: 20, y: 0});
+        body = new CanvasNode({x: 0, y: 50});
         
-        drawRect(10,10,50,30);     
-        drawRect(20,45,30,30);
-        drawCircle(20,25,4);
-        drawCircle(50,25,4);
+        drawRect(body, 10,10,50,30);     
+        drawRect(body, 20,45,30,30);
+        drawCircle(body, 20,25,4);
+        drawCircle(body, 50,25,4);
         
-        group.animateTo("x", 50, 200)
+        drawCircle(bubble, 35, 10, 30, 'white')
+        drawCircle(bubble, 10, 15, 20, 'white')
+        drawCircle(bubble, 60, 15, 20, 'white')
+        drawCircle(bubble, 60, 15, 20, 'white')
+        drawCircle(bubble, 55, 47, 7, 'white')
+        drawCircle(bubble, 50, 59, 3, 'white')
+
+        
+        robot.append(body);
+        robot.append(bubble);
+        canvas.append(robot);
+        
+        robot.animateTo("x", 50, 200)
+        
+        group.when('focus', function(){
+          // show bubble
+        });
       }
       
-      function drawCircle(x,y,rad) {
+      function drawCircle(node, x, y, rad, color) {
+        if (color == null) { color = 'black'}
         var circle = new Circle  (rad, {
           id: 'myCircle',
           x: x,
           y: y,
-          fill: 'black',
+          fill: color,
           endAngle: Math.PI*4
         })
-        group.append(circle);
+        node.append(circle);
       }
       
-      function drawRect(x,y,width,height) {
+      function drawRect(node,x,y,width,height, color) {
+        if (color == null) { color = '#AAA'}
         var rect = new Rectangle(width, height, { 
           x: x,
           y: y,
-          fill: '#CCC' 
+          fill: color
         });
-        group.append(rect);
+        node.append(rect);
       }
 
     </script> 
