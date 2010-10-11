@@ -3,11 +3,5 @@ require 'sinatra'
 require 'haml'
 
 get '/' do
-  haml :index
+  erb :index
 end
-
-__END__
-
-@@ index
-%a{:href => "busy.html"} Play BusyBodies
-
