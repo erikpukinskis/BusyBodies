@@ -2,6 +2,7 @@
   <head> 
     <link type="text/css" rel="Stylesheet" media="screen" href="/screen.css" /> 
     <script type="text/javascript" src="/cake.js"></script>
+    <script type="text/javascript" src="/mootools.js"></script>
    
     <script language="JavaScript" type="text/javascript"> 
       var canvas;
@@ -9,9 +10,11 @@
       window.onload = function() {
         
         canvas = new Canvas(document.body, 500, 500)
-        robot = drawRobot(canvas, -60, 40);
+        drawFlower(canvas, 50, 185, 'blue');
+        drawFlower(canvas, 400, 185, 'red');
+        robot = drawRobot(canvas, 100, 100);
         
-        robot.animateTo("x", 50, 200)
+        robot.animateTo("x", 300, 500, 'sproing')
         
         group.when('focus', function(){
           // show bubble
@@ -35,7 +38,6 @@
         drawCircle(bubble, 55, 47, 7, 'white')
         drawCircle(bubble, 50, 59, 3, 'white')
 
-        
         robot.append(body);
         robot.append(bubble);
         node.append(robot);
@@ -43,10 +45,23 @@
         return robot;
       }
       
+      function drawFlower(node, x, y, color) {
+        flower = new CanvasNode({x: x, y: y});
+        
+        [[0,0],[10,-2],[2,10],[12,8]].each(function(array,i) {
+          drawCircle(flower, array[0], array[1], 4, color);
+        });
+
+        var stem = new CatmullRomSpline( [[-20,-30], [6,5], [11, 40], [11,60]], { stroke: 'green' });
+        
+        flower.append(stem);
+        node.append(flower);
+        return flower;
+      }
+      
       function drawCircle(node, x, y, rad, color) {
         if (color == null) { color = 'black'}
         var circle = new Circle  (rad, {
-          id: 'myCircle',
           x: x,
           y: y,
           fill: color,
