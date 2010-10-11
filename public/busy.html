@@ -9,7 +9,17 @@
       window.onload = function() {
         
         canvas = new Canvas(document.body, 500, 500)
-        robot = new CanvasNode({x: -60, y: 40});
+        robot = drawRobot(canvas, -60, 40);
+        
+        robot.animateTo("x", 50, 200)
+        
+        group.when('focus', function(){
+          // show bubble
+        });
+      }
+      
+      function drawRobot(node, x, y) {
+        robot = new CanvasNode({x: x, y: y});
         bubble = new CanvasNode({x: 20, y: 0});
         body = new CanvasNode({x: 0, y: 50});
         
@@ -28,13 +38,9 @@
         
         robot.append(body);
         robot.append(bubble);
-        canvas.append(robot);
+        node.append(robot);
         
-        robot.animateTo("x", 50, 200)
-        
-        group.when('focus', function(){
-          // show bubble
-        });
+        return robot;
       }
       
       function drawCircle(node, x, y, rad, color) {
