@@ -37,6 +37,16 @@
         drawCircle(bubble, 60, 15, 20, 'white')
         drawCircle(bubble, 55, 47, 7, 'white')
         drawCircle(bubble, 50, 59, 3, 'white')
+        
+        var shadow = new Ellipse  (15,2 , {
+          x: 35,
+          y: 135,
+          fill: 'rgba(0,0,0,0.1)',
+          endAngle: Math.PI*4
+        });
+        
+        robot.append(shadow);
+        
 
         robot.append(body);
         robot.append(bubble);
