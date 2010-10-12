@@ -9,7 +9,7 @@
       
       window.onload = function() {
         
-        canvas = new Canvas(document.body, 600, 500)
+        canvas = new Canvas(document.body, 1000, 500)
         
         scene = new CanvasNode({x:300, y:300});
         grass = drawRect(scene, -300, -25, 600, 50, 'lightgreen');
@@ -40,8 +40,13 @@
         robot.append(bubble);
         node.append(robot);
         
-        bubble.when('focus', function(){
-          robot.remove(bubble);
+        small.when('focus', function(){
+          bubble.remove(small);
+          bubble.append(large);
+        });
+        large.when('focus', function(){
+          bubble.remove(large);
+          bubble.append(small);
         });
         
         return robot;
@@ -83,12 +88,12 @@
       }
       
       function drawLargeBubble() {
-        large = new CanvasNode({x: 30, y: -30});
+        large = new CanvasNode({x: 30, y: -50});
         
-        drawCircle(large, 0, 10, 50, 'white')
-        //drawCircle(large, 10, 15, 50, 'white')
-        //drawCircle(large, 60, 15, 50, 'white')
-
+        [[0, 0, 100],[60, 20, 70],[60, -30, 60],[-60, 20, 70],[-60, -30, 60]].each(function(a,i) {
+          drawCircle(large, a[0],a[1],a[2], 'white')          
+        });
+ 
         return large;
       }
       
