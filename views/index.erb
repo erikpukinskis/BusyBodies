@@ -79,18 +79,17 @@
       function drawSmallBubble() {
         small = new CanvasNode({x: 0, y: 0});
         
-        drawCircle(small, 35, 10, 30, 'white')
-        drawCircle(small, 10, 15, 20, 'white')
-        drawCircle(small, 60, 15, 20, 'white')
-        drawCircle(small, 60, 15, 20, 'white') 
+        [[35, 10, 30],[10, 15, 20],[60, 15, 20],[60, 15, 20]].each(function(a,i) {
+          drawCircle(small, a[0],a[1],a[2], 'white');
+        }); 
         
         return small;
       }
       
       function drawLargeBubble() {
-        large = new CanvasNode({x: 30, y: -50});
+        large = new CanvasNode({x: 30, y: -60});
         
-        [[0, 0, 100],[60, 20, 70],[60, -30, 60],[-60, 20, 70],[-60, -30, 60]].each(function(a,i) {
+        [[0, 0, 100],[60, 20, 65],[60, -20, 60],[-60, 20, 70],[-60, -30, 60]].each(function(a,i) {
           drawCircle(large, a[0],a[1],a[2], 'white')          
         });
  
