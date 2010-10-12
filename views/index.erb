@@ -36,17 +36,13 @@
         drawCircle(bubble, 55, 47, 7, 'white')
         drawCircle(bubble, 50, 59, 3, 'white')
         
-        bubble.append(small);
+        bubble.append(large);
         robot.append(bubble);
         node.append(robot);
         
         small.when('focus', function(){
           bubble.remove(small);
           bubble.append(large);
-        });
-        large.when('focus', function(){
-          bubble.remove(large);
-          bubble.append(small);
         });
         
         return robot;
@@ -92,7 +88,16 @@
         [[0, 0, 100],[60, 20, 65],[60, -20, 60],[-60, 20, 70],[-60, -30, 60]].each(function(a,i) {
           drawCircle(large, a[0],a[1],a[2], 'white')          
         });
- 
+        
+        button = new CanvasNode({x:100, y:0});
+        drawRect(button, -10, -25, 50, 50, "#666");
+        poly = new Polygon([[0,0],[10,-15],[10,-5],[20,-5],[20,5],[10,5],[10,15]].flatten(),
+          {
+            closePath: true, fill:'white'
+          }
+        )
+        button.append(poly);
+        large.append(button);
         return large;
       }
       
