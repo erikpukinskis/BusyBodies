@@ -15,44 +15,63 @@
         robot = drawRobot(canvas, 100, 100);
         
         robot.animateTo("x", 300, 500, 'sproing')
-        
-        group.when('focus', function(){
-          // show bubble
-        });
       }
       
       function drawRobot(node, x, y) {
-        robot = new CanvasNode({x: x, y: y});
+        robot  = new CanvasNode({x: x, y: y});
         bubble = new CanvasNode({x: 20, y: 0});
-        body = new CanvasNode({x: 0, y: 50});
+  
+        body   = drawBody(robot, 0, 50);
+        shadow = drawShadow(robot, 35, 135);    
+        small  = drawSmallBubble(bubble);
+        
+        drawCircle(bubble, 55, 47, 7, 'white')
+        drawCircle(bubble, 50, 59, 3, 'white')
+        
+        robot.append(bubble);
+        node.append(robot);
+        
+        bubble.when('focus', function(){
+          robot.remove(bubble);
+        });
+        
+        return robot;
+      }
+      
+      function drawBody(robot, x, y) {
+        body = new CanvasNode({x: x, y: y});
         
         drawRect(body, 10,10,50,30);     
         drawRect(body, 20,45,30,30);
         drawCircle(body, 20,25,4);
-        drawCircle(body, 50,25,4);
+        drawCircle(body, 50,25,4); 
         
-        drawCircle(bubble, 35, 10, 30, 'white')
-        drawCircle(bubble, 10, 15, 20, 'white')
-        drawCircle(bubble, 60, 15, 20, 'white')
-        drawCircle(bubble, 60, 15, 20, 'white')
-        drawCircle(bubble, 55, 47, 7, 'white')
-        drawCircle(bubble, 50, 59, 3, 'white')
-        
+        robot.append(body);
+        return body;
+      }
+      
+      function drawShadow(robot, x, y) {
         var shadow = new Ellipse  (15,2 , {
-          x: 35,
-          y: 135,
+          x: x,
+          y: y,
           fill: 'rgba(0,0,0,0.05)',
           endAngle: Math.PI*4
         });
-        
-        robot.append(shadow);
-        
 
-        robot.append(body);
-        robot.append(bubble);
-        node.append(robot);
+        robot.append(shadow); 
+        return shadow;
+      }
+      
+      function drawSmallBubble(bubble) {
+        small = new CanvasNode({x: 0, y: 0});
         
-        return robot;
+        drawCircle(small, 35, 10, 30, 'white')
+        drawCircle(small, 10, 15, 20, 'white')
+        drawCircle(small, 60, 15, 20, 'white')
+        drawCircle(small, 60, 15, 20, 'white') 
+        
+        bubble.append(small);
+        return small;
       }
       
       function drawFlower(node, x, y, color) {
