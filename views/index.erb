@@ -9,25 +9,34 @@
       
       window.onload = function() {
         
-        canvas = new Canvas(document.body, 500, 500)
-        drawFlower(canvas, 50, 185, 'blue');
-        drawFlower(canvas, 400, 185, 'red');
-        robot = drawRobot(canvas, 100, 100);
+        canvas = new Canvas(document.body, 600, 500)
         
-        robot.animateTo("x", 300, 500, 'sproing')
+        scene = new CanvasNode({x:300, y:300});
+        grass = drawRect(scene, -300, -25, 600, 50, 'lightgreen');
+        grass = drawRect(scene, 0, 0, 1, 1, 'green');
+        
+        drawFlower(scene, -200, 0, 'blue');
+        drawFlower(scene, 200, 0, 'red');
+        robot = drawRobot(scene, -130, 0);
+        
+        canvas.append(scene);
+        
+        robot.animateTo("x", 120, 500, 'sproing')
       }
       
       function drawRobot(node, x, y) {
         robot  = new CanvasNode({x: x, y: y});
-        bubble = new CanvasNode({x: 20, y: 0});
+        bubble = new CanvasNode({x: 20, y: -130});
   
-        body   = drawBody(robot, 0, 50);
-        shadow = drawShadow(robot, 35, 135);    
-        small  = drawSmallBubble(bubble);
+        body   = drawBody(robot, 0, -85);
+        shadow = drawShadow(robot, 35, 0);    
+        small  = drawSmallBubble();
+        large  = drawLargeBubble();
         
         drawCircle(bubble, 55, 47, 7, 'white')
         drawCircle(bubble, 50, 59, 3, 'white')
         
+        bubble.append(small);
         robot.append(bubble);
         node.append(robot);
         
@@ -54,7 +63,7 @@
         var shadow = new Ellipse  (15,2 , {
           x: x,
           y: y,
-          fill: 'rgba(0,0,0,0.05)',
+          fill: 'rgba(0,0,0,0.1)',
           endAngle: Math.PI*4
         });
 
@@ -62,7 +71,7 @@
         return shadow;
       }
       
-      function drawSmallBubble(bubble) {
+      function drawSmallBubble() {
         small = new CanvasNode({x: 0, y: 0});
         
         drawCircle(small, 35, 10, 30, 'white')
@@ -70,18 +79,27 @@
         drawCircle(small, 60, 15, 20, 'white')
         drawCircle(small, 60, 15, 20, 'white') 
         
-        bubble.append(small);
         return small;
+      }
+      
+      function drawLargeBubble() {
+        large = new CanvasNode({x: 30, y: -30});
+        
+        drawCircle(large, 0, 10, 50, 'white')
+        //drawCircle(large, 10, 15, 50, 'white')
+        //drawCircle(large, 60, 15, 50, 'white')
+
+        return large;
       }
       
       function drawFlower(node, x, y, color) {
         flower = new CanvasNode({x: x, y: y});
         
-        [[0,0],[10,-2],[2,10],[12,8]].each(function(array,i) {
+        [[0,-40],[10,-42],[2,-30],[12,-32]].each(function(array,i) {
           drawCircle(flower, array[0], array[1], 4, color);
         });
 
-        var stem = new CatmullRomSpline( [[-20,-30], [6,5], [11, 40], [11,60]], { stroke: 'green' });
+        var stem = new CatmullRomSpline( [[-20,-70], [6,-35], [11, 0], [11,20]], { stroke: 'green' });
         
         flower.append(stem);
         node.append(flower);
