@@ -16,7 +16,7 @@
         grass = drawRect(scene, 0, 0, 1, 1, 'green');
 
         for(var grid=-10; grid<10; grid++) {
-          //drawRect(scene, grid * 50 - 24, 2, 46, 46, [255,255,255,0.2]);
+          drawRect(scene, grid * 50 - 24, 2, 46, 46, [255,255,255,0.2]);
         }
         
         drawFlower(scene, -200, 0, 'blue');
@@ -25,12 +25,17 @@
         
         canvas.append(scene);
         
+        robot.target(3,0);
         //robot.animateTo("x", 120, 500, 'sproing')
       }
       
       BusyNode = Klass(CanvasNode, {
         initialize : function(x, y) {
           CanvasNode.initialize.call(this, {x: x*50, y: y*50})
+        },
+        
+        target : function(x, y) {
+          this.animateTo("x", x*50, 500, 'sproing');
         }
       })
       
