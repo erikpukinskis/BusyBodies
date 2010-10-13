@@ -14,22 +14,32 @@
         scene = new CanvasNode({x:300, y:300});
         grass = drawRect(scene, -300, -25, 600, 50, 'lightgreen');
         grass = drawRect(scene, 0, 0, 1, 1, 'green');
+
+        for(var grid=-10; grid<10; grid++) {
+          //drawRect(scene, grid * 50 - 24, 2, 46, 46, [255,255,255,0.2]);
+        }
         
         drawFlower(scene, -200, 0, 'blue');
         drawFlower(scene, 200, 0, 'red');
-        robot = drawRobot(scene, -130, 0);
+        robot = drawRobot(scene, 1, 0);
         
         canvas.append(scene);
         
-        robot.animateTo("x", 120, 500, 'sproing')
+        //robot.animateTo("x", 120, 500, 'sproing')
       }
       
+      BusyNode = Klass(CanvasNode, {
+        initialize : function(x, y) {
+          CanvasNode.initialize.call(this, {x: x*50, y: y*50})
+        }
+      })
+      
       function drawRobot(node, x, y) {
-        robot  = new CanvasNode({x: x, y: y});
-        bubble = new CanvasNode({x: 20, y: -130});
+        robot  = new BusyNode(x, y);
+        bubble = new CanvasNode({x: -15, y: -130});
   
-        body   = drawBody(robot, 0, -85);
-        shadow = drawShadow(robot, 35, 0);    
+        body   = drawBody(robot, -35, -85);
+        shadow = drawShadow(robot, 0, 0);    
         small  = drawSmallBubble();
         large  = drawLargeBubble();
         
