@@ -36,7 +36,7 @@
         drawCircle(bubble, 55, 47, 7, 'white')
         drawCircle(bubble, 50, 59, 3, 'white')
         
-        bubble.append(large);
+        bubble.append(small);
         robot.append(bubble);
         node.append(robot);
         
@@ -79,6 +79,8 @@
           drawCircle(small, a[0],a[1],a[2], 'white');
         }); 
         
+        consternation = drawConsternationSpline(small, 30, 20, -5);
+        
         return small;
       }
       
@@ -88,6 +90,8 @@
         [[0, 0, 100],[60, 20, 65],[60, -20, 60],[-60, 20, 70],[-60, -30, 60]].each(function(a,i) {
           drawCircle(large, a[0],a[1],a[2], 'white')          
         });
+        
+        consternation = drawConsternationSpline(large, 150, -80, -70);
         
         button = new CanvasNode({x:100, y:0});
         drawRect(button, -10, -25, 50, 50, "#666");
@@ -99,6 +103,21 @@
         button.append(poly);
         large.append(button);
         return large;
+      }
+      
+      function rnd(size) {
+        return Math.floor(Math.random()*size);
+      }
+      
+      function drawConsternationSpline(node, size, x, y) {
+        consternation = new CanvasNode({x:x, y:y});
+        points = [];
+        while(points.length < 40) {
+          points.push([rnd(size),rnd(size)]); 
+        }
+        consternation.append(new CatmullRomSpline(points, { stroke: 'gray'}));
+        node.append(consternation);
+        return consternation;
       }
       
       function drawFlower(node, x, y, color) {
