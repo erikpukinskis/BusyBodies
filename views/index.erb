@@ -16,7 +16,7 @@
         grass = drawRect(scene, 0, 0, 1, 1, 'green');
 
         for(var grid=-10; grid<10; grid++) {
-          drawRect(scene, grid * 50 - 24, 2, 46, 46, [255,255,255,0.2]);
+          //drawRect(scene, grid * 50 - 24, 2, 46, 46, [255,255,255,0.2]);
         }
         
         drawFlower(scene, -200, 0, 'blue');
@@ -25,19 +25,47 @@
         
         canvas.append(scene);
         
-        robot.target(3,0);
+        robot.moveTo(3,0);
         //robot.animateTo("x", 120, 500, 'sproing')
+      }
+      
+      function g(x) {
+        return x*50; 
       }
       
       BusyNode = Klass(CanvasNode, {
         initialize : function(x, y) {
-          CanvasNode.initialize.call(this, {x: x*50, y: y*50})
+          this.position = [x,y];
+          CanvasNode.initialize.call(this, {x: g(x), y: g(y)})
         },
         
-        target : function(x, y) {
-          this.animateTo("x", x*50, 500, 'sproing');
-        }
+        moveTo : function(x, y) {
+          this.target = [x,y];
+          this.move.periodical(250, this);
+        },
+        
+        move: function() {
+          if (this.position[0] == 3) { this.target = [-3,0] }
+          else if (this.position[0] == -3) { this.target = [3,0] }
+          
+          if (this.position != this.target) {
+            this.position = vectorAdd(this.position, this.direction());
+            this.animateTo("x", g(this.position[0]), 250); 
+          }
+        },
+        
+        direction: function() {
+          x_diff = this.target[0] - this.position[0];
+          if (x_diff == 0) { x = 0 }
+          else if (x_diff > 0) { x = 1 }
+          else { x = -1 }
+          return [x,0];
+        }  
       })
+      
+      function vectorAdd(a,b) {
+        return [a[0]+b[0],a[1]+b[1]]; 
+      }
       
       function drawRobot(node, x, y) {
         robot  = new BusyNode(x, y);
