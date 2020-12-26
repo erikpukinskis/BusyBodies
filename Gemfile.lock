@@ -1,12 +1,16 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    haml (3.0.21)
+    haml (5.0.0)
+      temple (>= 0.8.0)
+      tilt
     rack (1.2.1)
     shotgun (0.8)
       rack (>= 1.0)
     sinatra (1.0)
       rack (>= 1.0)
+    temple (0.8.2)
+    tilt (2.0.10)
 
 PLATFORMS
   ruby
